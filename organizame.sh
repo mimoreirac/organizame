@@ -10,6 +10,18 @@ DIR_VIDEOS="$HOME/Videos/"
 mkdir -p "$DIR_DOCS" "$DIR_IMG" "$DIR_VIDEOS"
 
 # Mover archivos
-mv '*.jpg' '*.png' '*.jpeg' '*.gif' "$DIR_IMG"
-mv '*.pdf' '*.doc' '*.docx' '*.txt' "$DIR_DOCS"
-mv '*.mp4' '*.avi' '*.mkv' "$DIR_VIDEOS"
+for file in "$DIR_BASE"/*; do
+	if [ -f "$file" ]; then
+		case "${file,,}" in
+		*.jpg | *.jpeg | *.png | *.gif)
+			mv "$file" "$DIR_IMG"
+			;;
+		*.pdf | *.doc | *.docx | *.txt)
+			mv "$file" "$DIR_DOCS"
+			;;
+		*.mp4 | *.avi | *.mkv)
+			mv "$file" "$DIR_VIDEOS"
+			;;
+		esac
+	fi
+done
